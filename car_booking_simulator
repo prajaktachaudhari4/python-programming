@@ -1,0 +1,81 @@
+import random
+import time
+
+# Fixed locations with distances (in km)
+locations = {
+    "A": 2,
+    "B": 5,
+    "C": 8,
+    "D": 12,
+    "E": 16
+}
+
+# Cab Types & Rates
+cab_types = {
+    "Mini": 10,
+    "Sedan": 15,
+    "SUV": 20
+}
+
+# Driver list
+drivers = ["Ravi", "Amit", "Suresh", "Karan", "Vijay"]
+
+print("===== CAB BOOKING SIMULATOR =====")
+
+print("\nAvailable Locations:")
+for loc, dist in locations.items():
+    print(f"{loc} - {dist} km from base location")
+
+# User input
+pickup = input("\nEnter Pickup Location (A/B/C/D/E): ").upper()
+drop = input("Enter Drop Location (A/B/C/D/E): ").upper()
+
+# Validate locations
+if pickup not in locations or drop not in locations:
+    print("Invalid location! Restart the program.")
+    exit()
+
+# Calculate distance
+distance = abs(locations[pickup] - locations[drop])
+print(f"\nDistance between {pickup} and {drop}: {distance} km")
+
+# Display cab types
+print("\nCab Types Available:")
+for cab, rate in cab_types.items():
+    print(f"{cab}: ₹{rate}/km")
+
+# Cab choice input (case-insensitive)
+cab_choice_input = input("\nChoose Cab Type (Mini/Sedan/SUV): ").strip()
+cab_choice_key = cab_choice_input.casefold()
+
+# Normalize cab names
+valid_cabs = {k.casefold(): k for k in cab_types}
+
+if cab_choice_key not in valid_cabs:
+    print("Invalid cab type!")
+    exit()
+
+cab_choice = valid_cabs[cab_choice_key]
+rate = cab_types[cab_choice]
+
+# Assign random driver
+driver = random.choice(drivers)
+
+# Fare calculation
+fare = distance * rate
+
+# Booking simulation
+print("\nBooking Confirmed!")
+print("Finding a driver...")
+time.sleep(2)
+
+# Final details
+print(f"\nDriver Assigned: {driver}")
+print(f"Cab Type: {cab_choice}")
+print(f"Distance: {distance} km")
+print(f"Rate: ₹{rate}/km")
+print(f"Total Fare: ₹{fare}")
+
+print("\nThank you for riding with us! 🚕")
+
+
